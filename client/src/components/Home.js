@@ -9,7 +9,7 @@ export default function Home() {
   const [receiverAddress, setreceiverAddress] = useState("")
   const [amount, setAmount] = useState()
 
-  const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_SEPOLIA_URL))
+  const web3 = new Web3(window.ethereum)
 
   const connectWallet = () => {
     if (window.ethereum) {
