@@ -2,52 +2,33 @@ import React, { useEffect, useState } from 'react'
 const Web3 = require("web3")
 
 
-export default function Home() {
+export default function Home(props) {
 
-  const [balance, setbalance] = useState(0)
-  const [senderAddress, setSenderAddress] = useState("")
   const [receiverAddress, setreceiverAddress] = useState("")
   const [amount, setAmount] = useState()
 
-  const web3 = new Web3(window.ethereum)
+  // const web3 = new Web3(window.ethereum)
 
-  const connectWallet = () => {
-    if (window.ethereum) {
-      window.ethereum.request({ method: 'eth_requestAccounts' })
-        .then(res => {
-          // Return the address of the wallet
-          setSenderAddress(res[0])
-          web3.eth.getBalance(res[0])
-            .then((balance) => {
-              setbalance(web3.utils.fromWei(balance))
-            })
-        })
-    } else {
-      alert("install metamask extension!!")
-    }
-  }
+  
+  // const handleOnSubmit = async (e) => {
+  //   e.preventDefault()
+  //   await web3.eth.sendTransaction({
+  //     from: senderAddress,
+  //     to: receiverAddress,
+  //     value: web3.utils.toWei(amount, "ether")
+  //   })
+  //     .then(function (receipt) {
+  //       console.log(receipt)
+  //     });
+  // }
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault()
-    await web3.eth.sendTransaction({
-      from: senderAddress,
-      to: receiverAddress,
-      value: web3.utils.toWei(amount, "ether")
-    })
-      .then(function (receipt) {
-        console.log(receipt)
-      });
-  }
-
-  const handleAddress = (e) => {
-    setreceiverAddress(e.target.value)
-  }
-  const handleAmount = (e) => {
-    setAmount(e.target.value)
-  }
-  useEffect(() => {
-    connectWallet()
-  }, [])
+  // const handleAddress = (e) => {
+  //   setreceiverAddress(e.target.value)
+  // }
+  // const handleAmount = (e) => {
+  //   setAmount(e.target.value)
+  // }
+  
 
 
 
@@ -56,11 +37,11 @@ export default function Home() {
       <div className='homeUpper'>
         <div className='adddressDiv'>
           <p className='textDullWhite'>Your Address</p>
-          <p className='textWhite'>{senderAddress}</p>
+          <p className='textWhite'>{props.senderAddress}</p>
         </div>
         <div className='balanceDiv'>
           <p className='textDullWhite'>Your account balance</p>
-          <p className='textWhite'>{balance} eth</p>
+          <p className='textWhite' id='balanceAmount'>{props.balance} eth</p>
         </div>
       </div>
       <div className='homeLower'>
