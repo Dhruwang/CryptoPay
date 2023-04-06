@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 const Web3 = require("web3")
 
 
@@ -18,31 +18,31 @@ export default function Home() {
           // Return the address of the wallet
           setSenderAddress(res[0])
           web3.eth.getBalance(res[0])
-          .then((balance)=>{
-            setbalance(web3.utils.fromWei(balance))
-          })
+            .then((balance) => {
+              setbalance(web3.utils.fromWei(balance))
+            })
         })
     } else {
       alert("install metamask extension!!")
     }
   }
 
-  const handleOnSubmit=async(e)=>{
+  const handleOnSubmit = async (e) => {
     e.preventDefault()
     await web3.eth.sendTransaction({
       from: senderAddress,
       to: receiverAddress,
-      value: web3.utils.toWei(amount,"ether")
-  })
-  .then(function(receipt){
-      console.log(receipt)
-  });
+      value: web3.utils.toWei(amount, "ether")
+    })
+      .then(function (receipt) {
+        console.log(receipt)
+      });
   }
 
-  const handleAddress=(e)=>{
+  const handleAddress = (e) => {
     setreceiverAddress(e.target.value)
   }
-  const handleAmount=(e)=>{
+  const handleAmount = (e) => {
     setAmount(e.target.value)
   }
   useEffect(() => {
@@ -52,12 +52,23 @@ export default function Home() {
 
 
   return (
-    <div>
-      <form onSubmit={handleOnSubmit}>
-        <h2>Transfer Eth</h2>
-        <p>Your Balance : {balance} eth</p>
-        <p>Your address : {senderAddress}</p>
-        <div className='inputDiv'>
+    <div className='home'>
+      <div className='homeUpper'>
+        <div className='adddressDiv'>
+          <p className='textDullWhite'>Your Address</p>
+          <p className='textWhite'>{senderAddress}</p>
+        </div>
+        <div className='balanceDiv'>
+          <p className='textDullWhite'>Your account balance</p>
+          <p className='textWhite'>{balance} eth</p>
+        </div>
+      </div>
+      <div className='homeLower'>
+        <button className='btn-primary'>History</button>
+        <button className='btn-secondary'>Send</button>
+      </div>
+
+      {/* <div className='inputDiv'>
             <p>Enter Receiver Address</p>
             <input id='receiverAddress' type='text' value={receiverAddress} onChange={handleAddress}></input>
         </div>
@@ -65,8 +76,7 @@ export default function Home() {
             <p>Enter amount to trannsfer</p>
             <input id="amount" type='number' step="any" value={amount} onChange={handleAmount}></input>
         </div>
-        <button type='submit'>Send</button>
-      </form>
+        <button type='submit'>Send</button> */}
     </div>
   )
 }
