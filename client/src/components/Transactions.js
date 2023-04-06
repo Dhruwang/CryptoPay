@@ -7,16 +7,30 @@ export default function Transactions(props) {
 
 
     const fetchSentTransactions = async () => {
+        let params={}
+        console.log("hello")
+        if(direction==="from"){
+
+             params = {
+                fromBlock: "0x0",
+                category: ["external", "internal", "erc20", "erc721", "erc1155"],
+                fromAddress: props.senderAddress
+              };
+        }
+        else{
+             params = {
+                fromBlock: "0x0",
+                category: ["external", "internal", "erc20", "erc721", "erc1155"],
+                toAddress: props.senderAddress
+              };
+        }
+
         let data = JSON.stringify({
             "jsonrpc": "2.0",
             "id": 0,
             "method": "alchemy_getAssetTransfers",
             "params": [
-                {
-                    "fromBlock": "0x0",
-                    "fromAddress": props.senderAddress,
-                    "category": ["external", "internal", "erc20", "erc721", "erc1155"]
-                }
+                params
             ]
         });
 
@@ -41,7 +55,7 @@ export default function Transactions(props) {
 
     useEffect(() => {
         props.senderAddress && fetchSentTransactions()
-    }, [props.senderAddress])
+    }, [props.senderAddress,direction])
 
 
 
@@ -50,12 +64,15 @@ export default function Transactions(props) {
         <div className='transactions'>
             <h2>Transactions</h2>
             <div className='sentReceivedToggle'>
-                <button className='btn1'>Sent</button>
-                <button className='btn2'>Received</button>
+                <button className='btn1' onClick={()=>{setdirection("from")}}>Sent</button>
+                <button className='btn2'  onClick={()=>{setdirection("to")}}>Received</button>
             </div>
-            {console.log(sentTransactions)
-}            {sentTransactions && sentTransactions.map((element) => {
-                return <TransactionDetails toAddress={element.to} value={element.value}/>
+          {direction==="from" && sentTransactions && sentTransactions.map((element) => {
+                return <TransactionDetails toAddress={element.to} value={element.value} color="red" direction="To" />
+
+            })}
+          {direction==="to" && sentTransactions && sentTransactions.map((element) => {
+                return <TransactionDetails toAddress={element.from} value={element.value} color="green" direction="From"/>
 
             })}
         </div>

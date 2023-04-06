@@ -1,11 +1,12 @@
 import React,{useState,useEffect} from 'react'
 import Home from './Home'
 import Transactions from './Transactions'
+import Send from './Send'
 
 export default function Outer() {
 
     const Web3 = require("web3")
-
+const [send, setsend] = useState(true)
 const [balance, setbalance] = useState(0)
 const [senderAddress, setSenderAddress] = useState("")
 
@@ -34,7 +35,8 @@ useEffect(() => {
   return (
     <div className='outer'>
         <Home balance={balance} senderAddress={senderAddress}/>
-        <Transactions senderAddress={senderAddress}/>
+        {!send && <Transactions senderAddress={senderAddress}/>}
+        {send && <Send />}
     </div>
   )
 }
