@@ -4,60 +4,30 @@ const Web3 = require("web3")
 
 export default function Home(props) {
 
-  const [receiverAddress, setreceiverAddress] = useState("")
-  const [amount, setAmount] = useState()
-
-  // const web3 = new Web3(window.ethereum)
-
-  
-  // const handleOnSubmit = async (e) => {
-  //   e.preventDefault()
-  //   await web3.eth.sendTransaction({
-  //     from: senderAddress,
-  //     to: receiverAddress,
-  //     value: web3.utils.toWei(amount, "ether")
-  //   })
-  //     .then(function (receipt) {
-  //       console.log(receipt)
-  //     });
-  // }
-
-  // const handleAddress = (e) => {
-  //   setreceiverAddress(e.target.value)
-  // }
-  // const handleAmount = (e) => {
-  //   setAmount(e.target.value)
-  // }
-  
-
-
 
   return (
     <div className='home'>
-      <div className='homeUpper'>
-        <div className='adddressDiv'>
-          <p className='textDullWhite'>Your Address</p>
-          <p className='textWhite'>{props.senderAddress}</p>
-        </div>
-        <div className='balanceDiv'>
-          <p className='textDullWhite'>Your account balance</p>
-          <p className='textWhite' id='balanceAmount'>{props.balance} eth</p>
-        </div>
-      </div>
-      <div className='homeLower'>
-        <button className='btn-primary'>History</button>
-        <button className='btn-secondary'>Send</button>
-      </div>
+      {!props.walletConnected && <div className='walletConnectAlert'>
+        <p>Please Connect your wallet</p>
+        <button className='btn-primary' onClick={()=>{props.connectWallet()}}>Connect</button>
+      </div>}
+      {props.walletConnected && <div className='homeInner'>
 
-      {/* <div className='inputDiv'>
-            <p>Enter Receiver Address</p>
-            <input id='receiverAddress' type='text' value={receiverAddress} onChange={handleAddress}></input>
+        <div className='homeUpper'>
+          <div className='adddressDiv'>
+            <p className='textDullWhite'>Your Address</p>
+            <p className='textWhite'>{props.senderAddress}</p>
+          </div>
+          <div className='balanceDiv'>
+            <p className='textDullWhite'>Your account balance</p>
+            <p className='textWhite' id='balanceAmount'>{props.balance} Eth</p>
+          </div>
         </div>
-        <div className='inputDiv'>
-            <p>Enter amount to trannsfer</p>
-            <input id="amount" type='number' step="any" value={amount} onChange={handleAmount}></input>
+        <div className='homeLower'>
+          <button className='btn-primary' onClick={() => { props.setsend(false) }}>History</button>
+          <button className='btn-secondary' onClick={() => { props.setsend(true) }}>Send</button>
         </div>
-        <button type='submit'>Send</button> */}
+      </div>}
     </div>
   )
 }

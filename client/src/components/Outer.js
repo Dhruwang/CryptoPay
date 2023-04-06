@@ -2,13 +2,16 @@ import React,{useState,useEffect} from 'react'
 import Home from './Home'
 import Transactions from './Transactions'
 import Send from './Send'
+import Animation from './Animation'
 
 export default function Outer() {
 
-    const Web3 = require("web3")
+const Web3 = require("web3")
 const [send, setsend] = useState(true)
 const [balance, setbalance] = useState(0)
 const [senderAddress, setSenderAddress] = useState("")
+const [walletConnected, setwalletConnected] = useState(false)
+
 
 
 const web3 = new Web3(window.ethereum)
@@ -19,6 +22,7 @@ const connectWallet = () => {
       .then(res => {
         // Return the address of the wallet
         setSenderAddress(res[0])
+        setwalletConnected(true)
         web3.eth.getBalance(res[0])
           .then((balance) => {
             setbalance(web3.utils.fromWei(balance))
@@ -28,15 +32,23 @@ const connectWallet = () => {
     alert("install metamask extension!!")
   }
 }
+window.ethereum.on('accountsChanged', function (accounts) {
+    connectWallet()
+  })
+  window.ethereum.on('chainChanged', () => {
+    connectWallet()
+  })
+  
 useEffect(() => {
     connectWallet()
   }, [])
 
   return (
     <div className='outer'>
-        <Home balance={balance} senderAddress={senderAddress}/>
+        <Animation />
+        <Home balance={balance} connectWallet={connectWallet} senderAddress={senderAddress} setsend={setsend} walletConnected={walletConnected}/>
         {!send && <Transactions senderAddress={senderAddress}/>}
-        {send && <Send />}
+        {send && <Send senderAddress={senderAddress}/>}
     </div>
   )
 }

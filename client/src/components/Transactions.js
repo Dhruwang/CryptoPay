@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import TransactionDetails from './TransactionDetails';
+import Spinner from './Spinner';
 
 export default function Transactions(props) {
     const [sentTransactions, setsentTransactions] = useState()
     const [direction, setdirection] = useState("from")
+    const [loading, setloading] = useState(false)
 
 
     const fetchSentTransactions = async () => {
-        let params={}
-        console.log("hello")
-        if(direction==="from"){
+        setloading(true)
 
-             params = {
+        let params = {}
+        console.log("hello")
+        if (direction === "from") {
+
+            params = {
                 fromBlock: "0x0",
                 category: ["external", "internal", "erc20", "erc721", "erc1155"],
                 fromAddress: props.senderAddress
-              };
+            };
         }
-        else{
-             params = {
+        else {
+            params = {
                 fromBlock: "0x0",
                 category: ["external", "internal", "erc20", "erc721", "erc1155"],
                 toAddress: props.senderAddress
-              };
+            };
         }
 
         let data = JSON.stringify({
@@ -48,6 +52,7 @@ export default function Transactions(props) {
         fetch(fetchURL, requestOptions)
             .then(response => response.json())
             .then(result => setsentTransactions(result.result.transfers))
+            .then(()=>{setloading(false)})
             .catch(error => console.log('error', error));
 
     }
@@ -55,7 +60,7 @@ export default function Transactions(props) {
 
     useEffect(() => {
         props.senderAddress && fetchSentTransactions()
-    }, [props.senderAddress,direction])
+    }, [props.senderAddress, direction])
 
 
 
@@ -64,17 +69,20 @@ export default function Transactions(props) {
         <div className='transactions'>
             <h2>Transactions</h2>
             <div className='sentReceivedToggle'>
-                <button className='btn1' onClick={()=>{setdirection("from")}}>Sent</button>
-                <button className='btn2'  onClick={()=>{setdirection("to")}}>Received</button>
+                <button className='btn1' onClick={() => { setdirection("from") }}>Sent</button>
+                <button className='btn2' onClick={() => { setdirection("to") }}>Received</button>
             </div>
-          {direction==="from" && sentTransactions && sentTransactions.map((element) => {
-                return <TransactionDetails toAddress={element.to} value={element.value} color="red" direction="To" />
+            {loading?<Spinner />:<div className='transactionHistory'>
 
-            })}
-          {direction==="to" && sentTransactions && sentTransactions.map((element) => {
-                return <TransactionDetails toAddress={element.from} value={element.value} color="green" direction="From"/>
+                {direction === "from" && sentTransactions && sentTransactions.map((element) => {
+                    return <TransactionDetails toAddress={element.to} value={element.value} color="red" direction="To" />
 
-            })}
+                })}
+                {direction === "to" && sentTransactions && sentTransactions.map((element) => {
+                    return <TransactionDetails toAddress={element.from} value={element.value} color="green" direction="From" />
+
+                })}
+            </div>}
         </div>
     )
 }

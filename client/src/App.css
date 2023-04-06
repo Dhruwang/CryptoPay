@@ -24,19 +24,45 @@ body{
   border-radius: 2rem;
   overflow: hidden;
   background-color: black;
+  position: relative;
+  overflow-y: scroll;
 }
 .home{
   width: 100%;
   height: 40%;
   border-radius: 2rem;
+  background: rgb(44,146,121);
+  background: linear-gradient(90deg, rgba(44,146,121,1) 0%, rgba(24,84,74,1) 63%);
+}
+.walletConnectAlert{
+  height: 100%;
+  width: 80%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.walletConnectAlert p{
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+
+}
+.homeInner{
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: rgb(44,146,121);
-background: linear-gradient(90deg, rgba(44,146,121,1) 0%, rgba(24,84,74,1) 63%);
+  
 }
 .homeUpper{
+  padding: 0 1rem;
+  width: 100%;
   margin-top: 1.5rem;
   height: 50%;
   display: flex;
@@ -60,6 +86,7 @@ background: linear-gradient(90deg, rgba(44,146,121,1) 0%, rgba(24,84,74,1) 63%);
   font-weight: 900;
 }
 .transactions{
+  width: 100%;
   height: 60%;
   color: white;
   display: flex;
@@ -79,6 +106,7 @@ background: linear-gradient(90deg, rgba(44,146,121,1) 0%, rgba(24,84,74,1) 63%);
   border: none;
   background-color: black;
   color: white;
+  cursor: pointer;
 }
 .btn-secondary{
   padding: 1.2rem 1.5rem;
@@ -86,6 +114,7 @@ background: linear-gradient(90deg, rgba(44,146,121,1) 0%, rgba(24,84,74,1) 63%);
   border: none;
   background-color: white;
   color: black;
+  cursor: pointer;
 }
 .textWhite{
   color: white;
@@ -145,13 +174,17 @@ background: linear-gradient(90deg, rgba(44,146,121,1) 0%, rgba(24,84,74,1) 63%);
 }
 .inputDiv input{
   background-color:transparent;
-  outline: 2px solid rgb(44,146,121);
+  outline: 3px solid rgb(44,146,121);
   border: none;
-  border-radius: 1.5rem;
   height: 3rem;
   margin: 1rem 0;
   color: white;
   padding: 0 1rem;
+  border-radius: 1.5rem;
+}
+#numberInput{
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 .btn{
   width: 100%;
@@ -161,4 +194,178 @@ background: linear-gradient(90deg, rgba(44,146,121,1) 0%, rgba(24,84,74,1) 63%);
 background: linear-gradient(90deg, rgba(44,146,121,1) 0%, rgba(24,84,74,1) 63%);
 color: white;
 border: none;
+cursor: pointer;
+}
+
+.animation{
+  height: 100%;
+  width: 100%;
+  background-color:transparent;
+  position: absolute;
+  background-color: black;
+  transform: translateY(-100vh);
+  animation: slide 4s ease-in-out ;
+}
+.animationInner{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+@keyframes intro {
+  0% {
+    transform: translateY(100vh) rotate(-90deg);
+  }
+  100%{
+    transform: translateY(0) rotate(-90deg);
+  }
+}
+.animationInner h1{
+  text-transform: uppercase;
+  font-size: 5rem;
+  transform: rotate(-90deg);
+  animation: intro 1s ease-in-out ;
+  color: white;
+}
+
+.dot{
+  font-size: 6rem;
+  animation: dot 2s ease 1s;
+}
+@keyframes dot {
+  0% {
+    color: rgb(44,146,121);
+  }
+  20% {
+    color: rgba(24,84,74,1);
+  }
+  40% {
+    color: rgb(44,146,121);
+  }
+  60% {
+    color:rgba(24,84,74,1)
+  }
+  80%{
+    color: rgb(44,146,121);
+  }
+  100%{
+    color: rgba(24,84,74,1);
+  }
+}
+@keyframes slide {
+  0% {
+    transform: translateY(0);
+    display: flex;
+  }
+  75%{
+    transform: translateY(0);
+    display: flex;
+
+  }
+  100%{
+    transform: translateY(-100vh);
+    display: none;
+  }
+}
+/* spinner css starts  */
+.lds-roller {
+  margin-top: 1rem;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* spinner css ends */
+
+@media only screen and (max-width: 600px) {
+  .outer{
+    height: 100vh;
+    width: 100vw;
+  }
+}
+@media only screen and (max-width: 462px) {
+  #balanceAmount{
+    font-size: 1.2rem;
+  }
 }
