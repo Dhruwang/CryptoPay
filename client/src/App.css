@@ -369,3 +369,12 @@ cursor: pointer;
     font-size: 1.2rem;
   }
 }
+#alertMsg{
+  text-align: center;
+  opacity: 0;
+}
+.spinner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

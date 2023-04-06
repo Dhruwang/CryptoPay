@@ -47,8 +47,8 @@ useEffect(() => {
     <div className='outer'>
         <Animation />
         <Home balance={balance} connectWallet={connectWallet} senderAddress={senderAddress} setsend={setsend} walletConnected={walletConnected}/>
-        {!send && <Transactions senderAddress={senderAddress}/>}
-        {send && <Send senderAddress={senderAddress}/>}
+        {!send && <Transactions senderAddress={senderAddress} />}
+        {send && <Send senderAddress={senderAddress} balance={balance}/>}
     </div>
   )
 }
