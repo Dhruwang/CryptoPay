@@ -29,7 +29,8 @@ export default function Send(props) {
             return
         }
         setloading(true)
-        await web3.eth.sendTransaction({
+        try {
+            await web3.eth.sendTransaction({
             from: props.senderAddress,
             to: receiverAddress,
             value: web3.utils.toWei(amount, "ether")
@@ -38,7 +39,13 @@ export default function Send(props) {
                 setreceiverAddress("")
                 setAmount("")
                 setloading(false)
-            });
+            })
+        } catch (error) {
+            console.log(error)
+            setloading(false)
+        }
+        
+            
     }
 
     const handleAddress = (e) => {

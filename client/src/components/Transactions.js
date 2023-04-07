@@ -12,7 +12,6 @@ export default function Transactions(props) {
         setloading(true)
 
         let params = {}
-        console.log("hello")
         if (direction === "from") {
 
             params = {
@@ -47,6 +46,7 @@ export default function Transactions(props) {
         };
 
         const baseURL = process.env.REACT_APP_SEPOLIA_URL;
+        console.log(process.env.REACT_APP_SEPOLIA_URL)
         const fetchURL = `${baseURL}`;
 
         fetch(fetchURL, requestOptions)

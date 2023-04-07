@@ -130,7 +130,7 @@ body{
 }
 .TransactionDetails{
   padding: 1rem 0rem;
-  width: 90%;
+  width: 100%;
   border-bottom: 1px solid white;
 }
 .sentReceivedToggle{
@@ -368,11 +368,15 @@ cursor: pointer;
   #balanceAmount{
     font-size: 1.2rem;
   }
+  #addressP{
+    font-size: 0.7rem;
+  }
 }
 #alertMsg{
   text-align: center;
   opacity: 0;
 }
+
 .spinner{
   display: flex;
   align-items: center;
