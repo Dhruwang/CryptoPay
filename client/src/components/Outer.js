@@ -32,10 +32,10 @@ const connectWallet = () => {
     alert("install metamask extension!!")
   }
 }
-window.ethereum.on('accountsChanged', function (accounts) {
+window.ethereum && window.ethereum.on('accountsChanged', function (accounts) {
     connectWallet()
   })
-  window.ethereum.on('chainChanged', () => {
+  window.ethereum && window.ethereum.on('chainChanged', () => {
     connectWallet()
   })
   

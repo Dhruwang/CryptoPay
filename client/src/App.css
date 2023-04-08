@@ -10,6 +10,9 @@ body{
   height: 100vh;
   background-color: rgb(29, 29, 29);
 }
+.App{
+  z-index: 10000;
+}
 /* scroll bar css starts  */
 /* width */
 ::-webkit-scrollbar {
